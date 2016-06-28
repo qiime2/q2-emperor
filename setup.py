@@ -13,7 +13,7 @@ setup(
     # todo stop duplicating version string
     version='0.0.0-dev',
     packages=find_packages(),
-    install_requires=['emperor > 0.9.6', 'scikit-bio',
+    install_requires=['emperor', 'scikit-bio',
                       'qiime >= 2.0.0', 'q2-types'],
     author="Yoshiki Vazquez-Baeza",
     author_email="yoshiki@ucsd.edu",
