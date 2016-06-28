@@ -13,25 +13,32 @@ from qiime.plugin import Plugin, Metadata
 
 from q2_types import PCoAResults
 from emperor import Emperor
+from os.path import join
 
 
-def plot_emperor(output_dir: str, sample_metadata: qiime.Metadata,
-                 pcoa: skbio.OrdinationResults) -> None:
+def plot(output_dir: str, sample_metadata: qiime.Metadata,
+         pcoa: skbio.OrdinationResults) -> None:
 
+    mf = sample_metadata.to_dataframe()
+    viz = Emperor(pcoa, mf)
 
+    # TODO: copy resources to the output directory. For now it just loads
+    # data from the GitHub website.
+    with open(join(output_dir, 'index.html'), 'w') as f:
+        f.write(viz.make_emperor(standalone=True))
 
     return None
 
 
 plugin = Plugin(
     name='emperor',
-    version=q2_emperor.__version__,
+    version='0.0.0',
     website='https://emperor.microbio.me',
     package='q2_emperor'
 )
 
 plugin.visualizers.register_function(
-    function=plot_emperor,
+    function=plot,
     inputs={'pcoa': PCoAResults},
     parameters={'sample_metadata': Metadata},
     name='Visualize and Interact with Principal Coordinates Analysis Plots',
