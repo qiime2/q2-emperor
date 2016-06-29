@@ -20,10 +20,14 @@ def plot(output_dir: str, sample_metadata: qiime.Metadata,
          pcoa: skbio.OrdinationResults) -> None:
 
     mf = sample_metadata.to_dataframe()
-    viz = Emperor(pcoa, mf, remote='./emperor-required-resources')
+
+    output = join(output_dir, 'emperor-required-resources/')
+    viz = Emperor(pcoa, mf, remote=output)
 
     with open(join(output_dir, 'index.html'), 'w') as f:
-        f.write(viz.make_emperor(standalone=True))
+        # correct the path
+        html = viz.make_emperor(standalone=True).replace(output_dir, '.')
+        f.write(html)
 
     return None
 
