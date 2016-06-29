@@ -20,10 +20,8 @@ def plot(output_dir: str, sample_metadata: qiime.Metadata,
          pcoa: skbio.OrdinationResults) -> None:
 
     mf = sample_metadata.to_dataframe()
-    viz = Emperor(pcoa, mf)
+    viz = Emperor(pcoa, mf, remote='./emperor-required-resources')
 
-    # TODO: copy resources to the output directory. For now it just loads
-    # data from the GitHub website.
     with open(join(output_dir, 'index.html'), 'w') as f:
         f.write(viz.make_emperor(standalone=True))
 
