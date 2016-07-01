@@ -63,3 +63,7 @@ target/
 
 # vi
 .*.swp
+
+# qiime
+*.qza
+*.qzv
