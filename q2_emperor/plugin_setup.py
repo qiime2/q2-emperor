@@ -26,7 +26,8 @@ def plot(output_dir: str, sample_metadata: qiime.Metadata,
 
     with open(join(output_dir, 'index.html'), 'w') as f:
         # correct the path
-        html = viz.make_emperor(standalone=True).replace(output_dir, '.')
+        html = viz.make_emperor(standalone=True)
+        viz.copy_support_files(output_dir)
         f.write(html)
 
     return None
