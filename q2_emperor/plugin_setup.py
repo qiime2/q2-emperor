@@ -22,7 +22,7 @@ def plot(output_dir: str, sample_metadata: qiime.Metadata,
     mf = sample_metadata.to_dataframe()
 
     output = join(output_dir, 'emperor-required-resources/')
-    viz = Emperor(pcoa, mf, remote=output)
+    viz = Emperor(pcoa, mf, remote='.')
 
     with open(join(output_dir, 'index.html'), 'w') as f:
         # correct the path
