@@ -21,7 +21,7 @@ setup(
     license="bsd",
     url="http://emperor.microbio.me",
     entry_points={
-        'qiime.plugin':
+        'qiime.plugins':
         ['q2-emperor=q2_emperor.plugin_setup:plugin']
     }
 )
