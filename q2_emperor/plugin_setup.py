@@ -11,6 +11,7 @@ import skbio
 
 from qiime.plugin import Plugin, Metadata
 
+import q2_emperor
 from q2_types import PCoAResults
 from emperor import Emperor
 from os.path import join
@@ -35,7 +36,7 @@ def plot(output_dir: str, sample_metadata: qiime.Metadata,
 
 plugin = Plugin(
     name='emperor',
-    version='0.0.0',
+    version=q2_emperor.__version__,
     website='https://emperor.microbio.me',
     package='q2_emperor'
 )
