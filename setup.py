@@ -18,7 +18,7 @@ setup(
     author="Yoshiki Vazquez-Baeza",
     author_email="yoshiki@ucsd.edu",
     description="Display ordination plots",
-    license="bsd",
+    license='BSD-3-Clause',
     url="http://emperor.microbio.me",
     entry_points={
         'qiime.plugins':
