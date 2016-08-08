@@ -38,7 +38,14 @@ plugin = Plugin(
     name='emperor',
     version=q2_emperor.__version__,
     website='https://emperor.microbio.me',
-    package='q2_emperor'
+    package='q2_emperor',
+    citation_text=('EMPeror: a tool for visualizing high-'
+                   'throughput microbial community data.\nVazquez-Baeza Y, '
+                   'Pirrung M, Gonzalez A, Knight R.\nGigascience. '
+                   '2013 Nov 26;2(1):16.'),
+    user_support_text=('To get help with Emperor, please post to the Emperor '
+                       'issue tracker: https://github.com/biocore/emperor'
+                       '/issues')
 )
 
 plugin.visualizers.register_function(
