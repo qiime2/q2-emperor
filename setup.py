@@ -14,7 +14,7 @@ setup(
     version='0.0.1',
     packages=find_packages(),
     install_requires=['emperor', 'scikit-bio',
-                      'qiime >= 2.0.0', 'q2-types'],
+                      'qiime >= 2.0.2', 'q2-types'],
     author="Yoshiki Vazquez-Baeza",
     author_email="yoshiki@ucsd.edu",
     description="Display ordination plots",
