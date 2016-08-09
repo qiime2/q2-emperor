@@ -11,7 +11,7 @@ from setuptools import setup, find_packages
 setup(
     name="q2-emperor",
     # todo stop duplicating version string
-    version='0.0.1',
+    version='0.0.2',
     packages=find_packages(),
     install_requires=['emperor', 'scikit-bio',
                       'qiime >= 2.0.2', 'q2-types'],
