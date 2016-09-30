@@ -22,10 +22,6 @@ def plot(output_dir: str, sample_metadata: qiime.Metadata,
 
     mf = sample_metadata.to_dataframe()
 
-    if custom_axis not in mf.columns and custom_axis:
-        raise KeyError("The custom_axis category %s is not present in the "
-                       "metadata." % custom_axis)
-
     output = join(output_dir, 'emperor-required-resources/')
     viz = Emperor(pcoa, mf, remote='.')
 
