@@ -9,7 +9,7 @@
 import qiime
 import skbio
 
-from qiime.plugin import Plugin, Metadata
+from qiime.plugin import Plugin, Metadata, Str
 
 import q2_emperor
 from q2_types import PCoAResults
@@ -18,7 +18,7 @@ from os.path import join
 
 
 def plot(output_dir: str, sample_metadata: qiime.Metadata,
-         pcoa: skbio.OrdinationResults) -> None:
+         pcoa: skbio.OrdinationResults, custom_axis: str=None) -> None:
 
     mf = sample_metadata.to_dataframe()
 
@@ -26,8 +26,9 @@ def plot(output_dir: str, sample_metadata: qiime.Metadata,
     viz = Emperor(pcoa, mf, remote='.')
 
     with open(join(output_dir, 'index.html'), 'w') as f:
-        # correct the path
-        html = viz.make_emperor(standalone=True)
+        # put custom_axis inside a list to workaround the type system not
+        # supporting lists of types
+        html = viz.make_emperor(standalone=True, custom_axes=[custom_axis])
         viz.copy_support_files(output_dir)
         f.write(html)
 
@@ -51,7 +52,7 @@ plugin = Plugin(
 plugin.visualizers.register_function(
     function=plot,
     inputs={'pcoa': PCoAResults},
-    parameters={'sample_metadata': Metadata},
+    parameters={'sample_metadata': Metadata, 'custom_axis': Str},
     name='Visualize and Interact with Principal Coordinates Analysis Plots',
     description='Generate visualization of your ordination.'
 )
