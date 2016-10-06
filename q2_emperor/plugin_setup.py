@@ -25,10 +25,14 @@ def plot(output_dir: str, sample_metadata: qiime.Metadata,
     output = join(output_dir, 'emperor-required-resources/')
     viz = Emperor(pcoa, mf, remote='.')
 
+    # custom_axis needs to be a list
+    if custom_axis:
+        custom_axis = [custom_axis]
+
     with open(join(output_dir, 'index.html'), 'w') as f:
         # put custom_axis inside a list to workaround the type system not
         # supporting lists of types
-        html = viz.make_emperor(standalone=True, custom_axes=[custom_axis])
+        html = viz.make_emperor(standalone=True, custom_axes=custom_axis)
         viz.copy_support_files(output_dir)
         f.write(html)
 
