@@ -17,18 +17,21 @@ from emperor import Emperor
 from os.path import join
 
 
-def plot(output_dir: str, sample_metadata: qiime.Metadata,
+def plot(output_dir: str, metadata: qiime.Metadata,
          pcoa: skbio.OrdinationResults, custom_axis: str=None) -> None:
 
-    mf = sample_metadata.to_dataframe()
+    mf = metadata.to_dataframe()
 
     output = join(output_dir, 'emperor-required-resources/')
     viz = Emperor(pcoa, mf, remote='.')
 
     with open(join(output_dir, 'index.html'), 'w') as f:
-        # put custom_axis inside a list to workaround the type system not
-        # supporting lists of types
-        html = viz.make_emperor(standalone=True, custom_axes=[custom_axis])
+        if custom_axis is not None:
+            # put custom_axis inside a list to workaround the type system not
+            # supporting lists of types
+            html = viz.make_emperor(standalone=True, custom_axes=[custom_axis])
+        else:
+            html = viz.make_emperor(standalone=True)
         viz.copy_support_files(output_dir)
         f.write(html)
 
@@ -52,7 +55,7 @@ plugin = Plugin(
 plugin.visualizers.register_function(
     function=plot,
     inputs={'pcoa': PCoAResults},
-    parameters={'sample_metadata': Metadata, 'custom_axis': Str},
+    parameters={'metadata': Metadata, 'custom_axis': Str},
     name='Visualize and Interact with Principal Coordinates Analysis Plots',
     description='Generate visualization of your ordination.'
 )
