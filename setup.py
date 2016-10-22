@@ -14,7 +14,7 @@ setup(
     version='0.0.5',
     packages=find_packages(),
     install_requires=['qiime >= 2.0.5', 'q2-types >= 0.0.5', 'emperor',
-                      'scikit-bio'],
+                      'scikit-bio', 'q2templates'],
     author="Yoshiki Vazquez-Baeza",
     author_email="yoshiki@ucsd.edu",
     description="Display ordination plots",
@@ -23,5 +23,6 @@ setup(
     entry_points={
         'qiime.plugins':
         ['q2-emperor=q2_emperor.plugin_setup:plugin']
-    }
+    },
+    package_data={'q2_emperor': ['assets/index.html']}
 )
