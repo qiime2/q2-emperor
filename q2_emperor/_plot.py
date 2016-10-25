@@ -26,9 +26,12 @@ def plot(output_dir: str, metadata: qiime.Metadata,
     if custom_axis is not None:
         # put custom_axis inside a list to workaround the type system not
         # supporting lists of types
-        html = viz.make_emperor(standalone=False, custom_axes=[custom_axis])
+        html = viz.make_emperor(standalone=True, custom_axes=[custom_axis])
     else:
-        html = viz.make_emperor(standalone=False)
+        html = viz.make_emperor(standalone=True)
     viz.copy_support_files(output_dir)
+    with open(os.path.join(output_dir, 'emperor.html'), 'w') as fh:
+        fh.write(html)
+
     index = os.path.join(TEMPLATES, 'index.html')
-    q2templates.render(index, output_dir, context={'emperor': html})
+    q2templates.render(index, output_dir)

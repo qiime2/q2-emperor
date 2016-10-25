@@ -1,34 +1,20 @@
 {% extends 'base.html' %}
 
-{% block head%}
+{% block head %}
 
-  <script src="./vendor/js/require-2.1.22.min.js"></script>
-  <script src="./vendor/js/jquery-2.1.4.min.js"></script>
-  <meta charset="utf-8">
-
-  <style>
-    html, body {
-        height: 100vh;
-        width: 100vw;
+<style media="screen">
+    iframe {
+        height: calc(100vh - 85px);
+        width: 100%;
+        border: none;
     }
-
-    canvas, .emperor-plot-wrapper {
-        width: 100vw;
-        height: calc(100vh - 85px) !important;
-    }
-
-    div[name="emperor-tabs-container"],
-    .emperor-plot-menu {
-        height: calc(100vh - 85px) !important;
-    }
-
-    .slick-viewport {
-        height: 100% !important;
-    }
-  </style>
+</style>
 
 {% endblock %}
 
 {% block content %}
-    {{ emperor }}
+    <div class="row text-center">
+        <iframe src="./emperor.html"></iframe>
+    </div>
+
 {% endblock %}
