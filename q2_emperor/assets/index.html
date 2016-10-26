@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+<style media="screen">
+    iframe {
+        height: calc(100vh - 85px);
+        width: 100%;
+        border: none;
+    }
+</style>
+
+{% endblock %}
+
+{% block content %}
+    <div class="row text-center">
+        <iframe src="./emperor.html"></iframe>
+    </div>
+
+{% endblock %}
