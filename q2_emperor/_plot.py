@@ -17,8 +17,8 @@ from emperor import Emperor
 TEMPLATES = pkg_resources.resource_filename('q2_emperor', 'assets')
 
 
-def plot(output_dir: str, metadata: qiime.Metadata,
-         pcoa: skbio.OrdinationResults, custom_axis: str=None) -> None:
+def plot(output_dir: str, pcoa: skbio.OrdinationResults,
+         metadata: qiime.Metadata, custom_axis: str=None) -> None:
 
     mf = metadata.to_dataframe()
     viz = Emperor(pcoa, mf, remote='.')
