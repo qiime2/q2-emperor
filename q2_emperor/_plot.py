@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# Copyright (c) 2016--, Emperor development team.
+# Copyright (c) 2016-2017, QIIME 2 development team.
 #
 # Distributed under the terms of the Modified BSD License.
 #
@@ -9,7 +9,7 @@
 import os
 import pkg_resources
 
-import qiime
+import qiime2
 import skbio
 import q2templates
 from emperor import Emperor
@@ -18,7 +18,7 @@ TEMPLATES = pkg_resources.resource_filename('q2_emperor', 'assets')
 
 
 def plot(output_dir: str, pcoa: skbio.OrdinationResults,
-         metadata: qiime.Metadata, custom_axis: str=None) -> None:
+         metadata: qiime2.Metadata, custom_axis: str=None) -> None:
 
     mf = metadata.to_dataframe()
     viz = Emperor(pcoa, mf, remote='.')

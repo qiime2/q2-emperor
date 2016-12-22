@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# Copyright (c) 2016--, Emperor development team.
+# Copyright (c) 2016-2017, QIIME 2 development team.
 #
 # Distributed under the terms of the Modified BSD License.
 #
@@ -10,8 +10,8 @@
 import q2_emperor
 from ._plot import plot
 
-from qiime.plugin import Plugin, Metadata, Str
-from q2_types import PCoAResults
+from qiime2.plugin import Plugin, Metadata, Str
+from q2_types.ordination import PCoAResults
 
 
 plugin = Plugin(

@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# Copyright (c) 2016--, Emperor development team.
+# Copyright (c) 2016-2017, QIIME 2 development team.
 #
 # Distributed under the terms of the Modified BSD License.
 #
@@ -10,18 +10,17 @@ from setuptools import setup, find_packages
 
 setup(
     name="q2-emperor",
-    # todo stop duplicating version string
-    version='0.0.7.dev0',
+    version='2017.2.0.dev0',
     packages=find_packages(),
-    install_requires=['qiime >= 2.0.6', 'q2-types >= 0.0.6', 'emperor',
-                      'scikit-bio', 'q2templates >= 0.0.6'],
+    install_requires=['qiime2 == 2017.2.*', 'q2-types == 2017.2.*',
+                      'q2templates == 2017.2.*', 'emperor', 'scikit-bio'],
     author="Yoshiki Vazquez-Baeza",
     author_email="yoshiki@ucsd.edu",
     description="Display ordination plots",
     license='BSD-3-Clause',
-    url="http://emperor.microbio.me",
+    url="https://qiime2.org",
     entry_points={
-        'qiime.plugins':
+        'qiime2.plugins':
         ['q2-emperor=q2_emperor.plugin_setup:plugin']
     },
     package_data={'q2_emperor': ['assets/index.html']}
