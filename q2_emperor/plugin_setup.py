@@ -32,6 +32,15 @@ plugin.visualizers.register_function(
     function=plot,
     inputs={'pcoa': PCoAResults},
     parameters={'metadata': Metadata, 'custom_axis': Str},
+    input_descriptions={
+        'pcoa': 'The principal coordinates matrix to be plotted.'
+    },
+    parameter_descriptions={
+        'metadata': 'The sample metadata.',
+        'custom_axis': ('A sample metadata category containing continuous '
+                        'values that should be included as an axis in the '
+                        'Emperor plot.')
+    },
     name='Visualize and Interact with Principal Coordinates Analysis Plots',
     description='Generate visualization of your ordination.'
 )
