@@ -10,10 +10,10 @@ from setuptools import setup, find_packages
 
 setup(
     name="q2-emperor",
-    version='2017.2.0',
+    version='2017.3.0.dev',
     packages=find_packages(),
-    install_requires=['qiime2 == 2017.2.*', 'q2-types == 2017.2.*',
-                      'q2templates == 2017.2.*', 'emperor', 'scikit-bio'],
+    install_requires=['qiime2 == 2017.3.*', 'q2-types == 2017.3.*',
+                      'q2templates == 2017.3.*', 'emperor', 'scikit-bio'],
     author="Yoshiki Vazquez-Baeza",
     author_email="yoshiki@ucsd.edu",
     description="Display ordination plots",
