@@ -8,4 +8,8 @@
 
 import pkg_resources
 
+from ._plot import plot
+
 __version__ = pkg_resources.get_distribution('q2-emperor').version
+
+__all__ = ['plot']
