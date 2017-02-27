@@ -19,8 +19,7 @@ from q2_emperor import plot
 
 
 class PlotTests(unittest.TestCase):
-
-    def test_plot(self):
+    def setUp(self):
         eigvals = np.array([0.50, 0.25, 0.25])
         samples = np.array([[0.1, 0.2, 0.3],
                             [0.2, 0.3, 0.4],
@@ -31,18 +30,26 @@ class PlotTests(unittest.TestCase):
         samples_df = pd.DataFrame(samples,
                                   ['A', 'B', 'C', 'D'],
                                   ['PC1', 'PC2', 'PC3'])
-        pcoa = skbio.OrdinationResults(
+        self.pcoa = skbio.OrdinationResults(
                 'PCoA',
                 'Principal Coordinate Analysis',
                 eigvals,
                 samples_df,
                 proportion_explained=proportion_explained)
-        metadata = qiime2.Metadata(
+        self.metadata = qiime2.Metadata(
             pd.DataFrame({'val1': ['1.0', '2.0', '3.0', '4.0']},
                          index=['A', 'B', 'C', 'D']))
 
+    def test_plot(self):
         with tempfile.TemporaryDirectory() as output_dir:
-            plot(output_dir, pcoa, metadata)
+            plot(output_dir, self.pcoa, self.metadata)
+            index_fp = os.path.join(output_dir, 'index.html')
+            self.assertTrue(os.path.exists(index_fp))
+            self.assertTrue('src="./emperor.html"' in open(index_fp).read())
+
+    def test_plot_custom_axes(self):
+        with tempfile.TemporaryDirectory() as output_dir:
+            plot(output_dir, self.pcoa, self.metadata, custom_axis='val1')
             index_fp = os.path.join(output_dir, 'index.html')
             self.assertTrue(os.path.exists(index_fp))
             self.assertTrue('src="./emperor.html"' in open(index_fp).read())
