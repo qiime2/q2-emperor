@@ -6,10 +6,10 @@
 # The full license is in the file LICENSE, distributed with this software.
 # ----------------------------------------------------------------------------
 
-import pkg_resources
-
 from ._plot import plot
+from ._version import get_versions
 
-__version__ = pkg_resources.get_distribution('q2-emperor').version
+__version__ = get_versions()['version']
+del get_versions
 
 __all__ = ['plot']

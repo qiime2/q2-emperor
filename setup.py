@@ -7,10 +7,12 @@
 # ----------------------------------------------------------------------------
 
 from setuptools import setup, find_packages
+import versioneer
 
 setup(
     name="q2-emperor",
-    version='2017.3.0.dev',
+    version=versioneer.get_version(),
+    cmdclass=versioneer.get_cmdclass(),
     packages=find_packages(),
     install_requires=['qiime2 == 2017.3.*', 'q2-types == 2017.3.*',
                       'q2templates == 2017.3.*', 'emperor', 'scikit-bio',
@@ -24,5 +26,6 @@ setup(
         'qiime2.plugins':
         ['q2-emperor=q2_emperor.plugin_setup:plugin']
     },
-    package_data={'q2_emperor': ['assets/index.html']}
+    package_data={'q2_emperor': ['assets/index.html']},
+    zip_safe=False,
 )
