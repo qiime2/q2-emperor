@@ -17,7 +17,7 @@ from q2_types.ordination import PCoAResults
 plugin = Plugin(
     name='emperor',
     version=q2_emperor.__version__,
-    website='https://emperor.microbio.me',
+    website='http://emperor.microbio.me',
     package='q2_emperor',
     citation_text=('EMPeror: a tool for visualizing high-'
                    'throughput microbial community data.\nVazquez-Baeza Y, '
