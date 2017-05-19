@@ -23,9 +23,10 @@ plugin = Plugin(
                    'throughput microbial community data.\nVazquez-Baeza Y, '
                    'Pirrung M, Gonzalez A, Knight R.\nGigascience. '
                    '2013 Nov 26;2(1):16.'),
-    user_support_text=('To get help with Emperor, please post to the Emperor '
-                       'issue tracker: https://github.com/biocore/emperor'
-                       '/issues')
+    description=('This QIIME 2 plugin wraps Emperor and '
+                 'supports interactive visualization of ordination '
+                 'plots.'),
+    short_description='Plugin for ordination plotting with Emperor.'
 )
 
 plugin.visualizers.register_function(
