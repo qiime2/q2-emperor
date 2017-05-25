@@ -3,10 +3,18 @@
 {% block head %}
 
 <style media="screen">
+    body {
+        overflow: hidden; /* hide rounding error in viewport calc */
+    }
+
     iframe {
-        height: calc(100vh - 85px);
+        height: 100vh;
         width: 100%;
         border: none;
+    }
+
+    #q2templatesheader ~ .row > iframe {
+	height: calc(100vh - 85px);
     }
 </style>
 
