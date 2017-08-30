@@ -20,7 +20,8 @@ from q2_emperor import plot
 
 class PlotTests(unittest.TestCase):
     def setUp(self):
-        eigvals = np.array([0.50, 0.25, 0.25])
+        eigvals = pd.Series(np.array([0.50, 0.25, 0.25]),
+                            index=['PC1', 'PC2', 'PC3'])
         samples = np.array([[0.1, 0.2, 0.3],
                             [0.2, 0.3, 0.4],
                             [0.3, 0.4, 0.5],
