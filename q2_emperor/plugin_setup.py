@@ -22,7 +22,11 @@ plugin = Plugin(
     citation_text=('EMPeror: a tool for visualizing high-'
                    'throughput microbial community data.\nVazquez-Baeza Y, '
                    'Pirrung M, Gonzalez A, Knight R.\nGigascience. '
-                   '2013 Nov 26;2(1):16.'),
+                   '2013 Nov 26;2(1):16.\n'
+                   'Bringing the Dynamic Microbiome to Life with Animations.\n'
+                   'Vazquez-Baeza Y, Gonzalez A, Smarr L, McDonald D, Morton '
+                   'J, Navas-Molina J, Knight R.\nCell Host & Microbe.'
+                   'Volume 21, Issue 1, p7–10, 11 January 2017.'),
     description=('This QIIME 2 plugin wraps Emperor and '
                  'supports interactive visualization of ordination '
                  'plots.'),
