@@ -39,7 +39,7 @@ class PlotTests(unittest.TestCase):
                 proportion_explained=proportion_explained)
         self.metadata = qiime2.Metadata(
             pd.DataFrame({'val1': ['1.0', '2.0', '3.0', '4.0']},
-                         index=['A', 'B', 'C', 'D']))
+                         index=pd.Index(['A', 'B', 'C', 'D'], name='id')))
 
     def test_plot(self):
         with tempfile.TemporaryDirectory() as output_dir:
