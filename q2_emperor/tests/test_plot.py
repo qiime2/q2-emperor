@@ -38,7 +38,8 @@ class PlotTests(unittest.TestCase):
                 samples_df,
                 proportion_explained=proportion_explained)
         self.metadata = qiime2.Metadata(
-            pd.DataFrame({'val1': ['1.0', '2.0', '3.0', '4.0']},
+            pd.DataFrame({'val1': ['1.0', '2.0', '3.0', '4.0'],
+                          'val2': ['3.3', '3.5', '3.6', '3.9']},
                          index=pd.Index(['A', 'B', 'C', 'D'], name='id')))
 
     def test_plot(self):
@@ -48,9 +49,17 @@ class PlotTests(unittest.TestCase):
             self.assertTrue(os.path.exists(index_fp))
             self.assertTrue('src="./emperor.html"' in open(index_fp).read())
 
+    def test_plot_custom_axis(self):
+        with tempfile.TemporaryDirectory() as output_dir:
+            plot(output_dir, self.pcoa, self.metadata, custom_axes=['val1'])
+            index_fp = os.path.join(output_dir, 'index.html')
+            self.assertTrue(os.path.exists(index_fp))
+            self.assertTrue('src="./emperor.html"' in open(index_fp).read())
+
     def test_plot_custom_axes(self):
         with tempfile.TemporaryDirectory() as output_dir:
-            plot(output_dir, self.pcoa, self.metadata, custom_axis='val1')
+            plot(output_dir, self.pcoa, self.metadata,
+                 custom_axes=['val1', 'val2'])
             index_fp = os.path.join(output_dir, 'index.html')
             self.assertTrue(os.path.exists(index_fp))
             self.assertTrue('src="./emperor.html"' in open(index_fp).read())
