@@ -18,17 +18,12 @@ TEMPLATES = pkg_resources.resource_filename('q2_emperor', 'assets')
 
 
 def plot(output_dir: str, pcoa: skbio.OrdinationResults,
-         metadata: qiime2.Metadata, custom_axis: str=None) -> None:
+         metadata: qiime2.Metadata, custom_axes: str=None) -> None:
 
     mf = metadata.to_dataframe()
     viz = Emperor(pcoa, mf, remote='.')
 
-    if custom_axis is not None:
-        # put custom_axis inside a list to workaround the type system not
-        # supporting lists of types
-        html = viz.make_emperor(standalone=True, custom_axes=[custom_axis])
-    else:
-        html = viz.make_emperor(standalone=True)
+    html = viz.make_emperor(standalone=True, custom_axes=custom_axes)
     viz.copy_support_files(output_dir)
     with open(os.path.join(output_dir, 'emperor.html'), 'w') as fh:
         fh.write(html)

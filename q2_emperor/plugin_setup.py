@@ -10,7 +10,7 @@
 import q2_emperor
 from ._plot import plot
 
-from qiime2.plugin import Plugin, Metadata, Str
+from qiime2.plugin import Plugin, Metadata, Str, List
 from q2_types.ordination import PCoAResults
 
 
@@ -36,14 +36,14 @@ plugin = Plugin(
 plugin.visualizers.register_function(
     function=plot,
     inputs={'pcoa': PCoAResults},
-    parameters={'metadata': Metadata, 'custom_axis': Str},
+    parameters={'metadata': Metadata, 'custom_axes': List[Str]},
     input_descriptions={
         'pcoa': 'The principal coordinates matrix to be plotted.'
     },
     parameter_descriptions={
         'metadata': 'The sample metadata.',
-        'custom_axis': ('A numeric sample metadata column that should be '
-                        'included as an axis in the Emperor plot.')
+        'custom_axes': ('Numeric sample metadata columns that should be '
+                        'included as axes in the Emperor plot.')
     },
     name='Visualize and Interact with Principal Coordinates Analysis Plots',
     description='Generate visualization of your ordination.'
