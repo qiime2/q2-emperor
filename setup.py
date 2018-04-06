@@ -23,6 +23,6 @@ setup(
         'qiime2.plugins':
         ['q2-emperor=q2_emperor.plugin_setup:plugin']
     },
-    package_data={'q2_emperor': ['assets/index.html']},
+    package_data={'q2_emperor': ['assets/index.html', 'citations.bib']},
     zip_safe=False,
 )

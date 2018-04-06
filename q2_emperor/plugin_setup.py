@@ -18,7 +18,7 @@ plugin = Plugin(
     version=q2_emperor.__version__,
     website='http://emperor.microbio.me',
     package='q2_emperor',
-    citations=Citations.load('CITATIONS.bib', package='q2_emperor'),
+    citations=Citations.load('citations.bib', package='q2_emperor'),
     description=('This QIIME 2 plugin wraps Emperor and '
                  'supports interactive visualization of ordination '
                  'plots.'),
