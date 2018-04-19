@@ -15,7 +15,7 @@ import numpy as np
 import qiime2
 import skbio
 
-from q2_emperor import plot
+from q2_emperor import plot, procrustes_plot
 
 
 class PlotTests(unittest.TestCase):
@@ -29,14 +29,25 @@ class PlotTests(unittest.TestCase):
         proportion_explained = pd.Series([15.5, 12.2, 8.8],
                                          index=['PC1', 'PC2', 'PC3'])
         samples_df = pd.DataFrame(samples,
-                                  ['A', 'B', 'C', 'D'],
-                                  ['PC1', 'PC2', 'PC3'])
+                                  index=['A', 'B', 'C', 'D'],
+                                  columns=['PC1', 'PC2', 'PC3'])
         self.pcoa = skbio.OrdinationResults(
                 'PCoA',
                 'Principal Coordinate Analysis',
                 eigvals,
                 samples_df,
                 proportion_explained=proportion_explained)
+
+        samples_df = pd.DataFrame(samples + 1.01,
+                                  index=['A', 'B', 'C', 'D'],
+                                  columns=['PC1', 'PC2', 'PC3'])
+        self.other = skbio.OrdinationResults(
+                'PCoA',
+                'Principal Coordinate Analysis',
+                eigvals.copy(),
+                samples_df,
+                proportion_explained=proportion_explained.copy())
+
         self.metadata = qiime2.Metadata(
             pd.DataFrame({'val1': ['1.0', '2.0', '3.0', '4.0'],
                           'val2': ['3.3', '3.5', '3.6', '3.9']},
@@ -60,6 +71,22 @@ class PlotTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as output_dir:
             plot(output_dir, self.pcoa, self.metadata,
                  custom_axes=['val1', 'val2'])
+            index_fp = os.path.join(output_dir, 'index.html')
+            self.assertTrue(os.path.exists(index_fp))
+            self.assertTrue('src="./emperor.html"' in open(index_fp).read())
+
+    def test_plot_procrustes(self):
+        with tempfile.TemporaryDirectory() as output_dir:
+            procrustes_plot(output_dir, self.pcoa, other_pcoa=self.other,
+                            metadata=self.metadata)
+            index_fp = os.path.join(output_dir, 'index.html')
+            self.assertTrue(os.path.exists(index_fp))
+            self.assertTrue('src="./emperor.html"' in open(index_fp).read())
+
+    def test_plot_procrustes_custom_axis(self):
+        with tempfile.TemporaryDirectory() as output_dir:
+            procrustes_plot(output_dir, self.pcoa, other_pcoa=self.other,
+                            metadata=self.metadata, custom_axes=['val1'])
             index_fp = os.path.join(output_dir, 'index.html')
             self.assertTrue(os.path.exists(index_fp))
             self.assertTrue('src="./emperor.html"' in open(index_fp).read())

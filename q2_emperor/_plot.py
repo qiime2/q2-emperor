@@ -29,7 +29,10 @@ def _generic_plot(output_dir: str, master: skbio.OrdinationResults,
 
     viz = Emperor(master, mf, procrustes=procrustes, remote='.')
 
-    html = viz.make_emperor(standalone=True, custom_axes=custom_axes)
+    if custom_axes is not None:
+        viz.custom_axes = custom_axes
+
+    html = viz.make_emperor(standalone=True)
     viz.copy_support_files(output_dir)
     with open(os.path.join(output_dir, 'emperor.html'), 'w') as fh:
         fh.write(html)
