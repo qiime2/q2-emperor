@@ -32,11 +32,21 @@ plugin.visualizers.register_function(
     input_descriptions={
         'pcoa': 'The principal coordinates matrix to be plotted.'
     },
-    parameter_descriptions={
-        'metadata': 'The sample metadata.',
-        'custom_axes': ('Numeric sample metadata columns that should be '
-                        'included as axes in the Emperor plot.')
-    },
+    parameter_descriptions=PARAMETERS_DESC,
     name='Visualize and Interact with Principal Coordinates Analysis Plots',
-    description='Generate visualization of your ordination.'
+    description='Visualize and ordination'
+)
+
+plugin.visualizers.register_function(
+    function=procrustes_plot,
+    inputs={'reference_pcoa': PCoAResults, 'other_pcoa': PCoAResults},
+    parameters=PARAMETERS,
+    input_descriptions={
+        'reference_pcoa': 'The reference ordination matrix to be plotted.',
+        'other_pcoa': 'The "other" ordination matrix to be plotted (the one '
+                      'that was fitted to the reference).'
+    },
+    parameter_descriptions=PARAMETERS_DESC,
+    name='Visualize and Interact with a procrustes plot',
+    description='Plot two procrustes-fitted matrices'
 )

@@ -16,12 +16,18 @@ from emperor import Emperor
 
 TEMPLATES = pkg_resources.resource_filename('q2_emperor', 'assets')
 
-
-def plot(output_dir: str, pcoa: skbio.OrdinationResults,
-         metadata: qiime2.Metadata, custom_axes: str=None) -> None:
+def _generic_plot(output_dir: str, master: skbio.OrdinationResults,
+                  metadata: qiime2.Metadata,
+                  other_pcoa: skbio.OrdinationResults, custom_axes: str=None):
 
     mf = metadata.to_dataframe()
-    viz = Emperor(pcoa, mf, remote='.')
+
+    if other_pcoa is None:
+        procrustes = None
+    else:
+        procrustes = [other_pcoa]
+
+    viz = Emperor(master, mf, procrustes=procrustes, remote='.')
 
     html = viz.make_emperor(standalone=True, custom_axes=custom_axes)
     viz.copy_support_files(output_dir)
@@ -30,3 +36,16 @@ def plot(output_dir: str, pcoa: skbio.OrdinationResults,
 
     index = os.path.join(TEMPLATES, 'index.html')
     q2templates.render(index, output_dir)
+
+
+def plot(output_dir: str, pcoa: skbio.OrdinationResults,
+         metadata: qiime2.Metadata, custom_axes: str=None) -> None:
+    _generic_plot(output_dir, master=pcoa, metadata=metadata, other_pcoa=None,
+                  custom_axes=custom_axes)
+
+
+def procrustes_plot(output_dir: str, reference_pcoa: skbio.OrdinationResults,
+                    other_pcoa: skbio.OrdinationResults,
+                    metadata: qiime2.Metadata, custom_axes: str=None) -> None:
+    _generic_plot(output_dir, master=reference_pcoa, metadata=metadata,
+                  other_pcoa=other_pcoa, custom_axes=custom_axes)
