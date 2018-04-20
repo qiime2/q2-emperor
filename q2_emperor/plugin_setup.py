@@ -8,10 +8,17 @@
 
 
 import q2_emperor
-from ._plot import plot
+from ._plot import plot, procrustes_plot
 
-from qiime2.plugin import Plugin, Metadata, Str, List, Citations
+from qiime2.plugin import Plugin, Metadata, Str, List
 from q2_types.ordination import PCoAResults
+
+PARAMETERS = {'metadata': Metadata, 'custom_axes': List[Str]}
+PARAMETERS_DESC = {
+    'metadata': 'The sample metadata.',
+    'custom_axes': ('Numeric sample metadata columns that should be '
+                    'included as axes in the Emperor plot.')
+}
 
 plugin = Plugin(
     name='emperor',
