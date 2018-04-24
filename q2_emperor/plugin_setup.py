@@ -10,7 +10,7 @@
 import q2_emperor
 from ._plot import plot, procrustes_plot
 
-from qiime2.plugin import Plugin, Metadata, Str, List
+from qiime2.plugin import Plugin, Metadata, Str, List, Citations
 from q2_types.ordination import PCoAResults
 
 PARAMETERS = {'metadata': Metadata, 'custom_axes': List[Str]}
