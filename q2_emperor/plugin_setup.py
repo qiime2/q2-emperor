@@ -41,7 +41,8 @@ plugin.visualizers.register_function(
     },
     parameter_descriptions=PARAMETERS_DESC,
     name='Visualize and Interact with Principal Coordinates Analysis Plots',
-    description='Visualize and ordination'
+    description='Generates an interactive ordination plot where the user '
+                'can visually integrate sample metadata.'
 )
 
 plugin.visualizers.register_function(
