@@ -17,10 +17,10 @@ from emperor import Emperor
 TEMPLATES = pkg_resources.resource_filename('q2_emperor', 'assets')
 
 
-def _generic_plot(output_dir: str, master: skbio.OrdinationResults,
-                  metadata: qiime2.Metadata,
-                  other_pcoa: skbio.OrdinationResults, plot_name,
-                  custom_axes: str=None):
+def generic_plot(output_dir: str, master: skbio.OrdinationResults,
+                 metadata: qiime2.Metadata,
+                 other_pcoa: skbio.OrdinationResults, plot_name,
+                 custom_axes: str=None, settings: dict=None):
 
     mf = metadata.to_dataframe()
 
@@ -37,6 +37,8 @@ def _generic_plot(output_dir: str, master: skbio.OrdinationResults,
     if other_pcoa:
         viz.procrustes_names = ['reference', 'other']
 
+    vis.settings = settings
+
     html = viz.make_emperor(standalone=True)
     viz.copy_support_files(output_dir)
     with open(os.path.join(output_dir, 'emperor.html'), 'w') as fh:
@@ -48,13 +50,13 @@ def _generic_plot(output_dir: str, master: skbio.OrdinationResults,
 
 def plot(output_dir: str, pcoa: skbio.OrdinationResults,
          metadata: qiime2.Metadata, custom_axes: str=None) -> None:
-    _generic_plot(output_dir, master=pcoa, metadata=metadata, other_pcoa=None,
-                  custom_axes=custom_axes, plot_name='plot')
+    generic_plot(output_dir, master=pcoa, metadata=metadata, other_pcoa=None,
+                 custom_axes=custom_axes, plot_name='plot')
 
 
 def procrustes_plot(output_dir: str, reference_pcoa: skbio.OrdinationResults,
                     other_pcoa: skbio.OrdinationResults,
                     metadata: qiime2.Metadata, custom_axes: str=None) -> None:
-    _generic_plot(output_dir, master=reference_pcoa, metadata=metadata,
-                  other_pcoa=other_pcoa, custom_axes=custom_axes,
-                  plot_name='procrustes_plot')
+    generic_plot(output_dir, master=reference_pcoa, metadata=metadata,
+                 other_pcoa=other_pcoa, custom_axes=custom_axes,
+                 plot_name='procrustes_plot')

@@ -90,3 +90,12 @@ class PlotTests(unittest.TestCase):
             index_fp = os.path.join(output_dir, 'index.html')
             self.assertTrue(os.path.exists(index_fp))
             self.assertTrue('src="./emperor.html"' in open(index_fp).read())
+
+    def test_generic_plot_with_settings(self):
+        settings = {'color': 'val1'}
+        with tempfile.TemporaryDirectory() as output_dir:
+            generic_plot(output_dir, self.pcoa, self.metadata,
+                         settings=settings)
+            index_fp = os.path.join(output_dir, 'index.html')
+            self.assertTrue(os.path.exists(index_fp))
+            self.assertTrue('src="./emperor.html"' in open(index_fp).read())
