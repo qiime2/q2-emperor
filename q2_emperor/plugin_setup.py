@@ -8,9 +8,9 @@
 
 
 import q2_emperor
-from ._plot import plot, procrustes_plot
+from ._plot import plot, procrustes_plot, biplot
 
-from qiime2.plugin import Plugin, Metadata, Str, List, Citations
+from qiime2.plugin import Plugin, Metadata, Str, List, Citations, Range, Int
 from q2_types.ordination import PCoAResults
 
 PARAMETERS = {'metadata': Metadata, 'custom_axes': List[Str]}
@@ -57,4 +57,25 @@ plugin.visualizers.register_function(
     parameter_descriptions=PARAMETERS_DESC,
     name='Visualize and Interact with a procrustes plot',
     description='Plot two procrustes-fitted matrices'
+)
+
+plugin.visualizers.register_function(
+    function=biplot,
+    inputs={'biplot': PCoAResults},
+    parameters={'sample_metadata': Metadata,
+                'feature_metadata': Metadata,
+                'number_of_features': Int % Range(1, None)},
+    input_descriptions={
+        'biplot': 'The principal coordinates matrix to be plotted.'
+    },
+    parameter_descriptions={
+        'sample_metadata': 'The sample metadata',
+        'feature_metadata': 'The feature metadata (useful to manipulate the '
+                            'arrows in the plot).',
+        'number_of_features': 'The number of most important features '
+                              '(arrows) to display in the ordination.',
+        },
+    name='Visualize and Interact with Principal Coordinates Analysis Biplot',
+    description='Generates an interactive ordination biplot where the user '
+                'can visually integrate sample and feature metadata.'
 )
