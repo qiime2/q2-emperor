@@ -111,11 +111,12 @@ class PlotTests(unittest.TestCase):
             self.assertTrue('src="./emperor.html"' in open(index_fp).read())
 
     def test_biplot_with_feature_metadata(self):
-        feat_md = pd.DataFrame(index=['x', 'y', 'z'],
-                               columns=['k', 'p'],
-                               data=[['Bacteria', 'Firmicutes'],
-                                     ['Bacteria', 'Firmicutes'],
-                                     ['Bacteria', 'Bacteroidetes']])
+        feat_md = qiime2.Metadata(
+            pd.DataFrame(index=pd.Index(['x', 'y', 'z'], name='feature id'),
+                         columns=['k', 'p'],
+                         data=[['Bacteria', 'Firmicutes'],
+                               ['Bacteria', 'Firmicutes'],
+                               ['Bacteria', 'Bacteroidetes']]))
 
         with tempfile.TemporaryDirectory() as output_dir:
             biplot(output_dir, self.biplot,

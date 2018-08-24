@@ -26,6 +26,8 @@ def _generic_plot(output_dir: str, master: skbio.OrdinationResults,
                   feature_metadata: qiime2.Metadata=None):
 
     mf = metadata.to_dataframe()
+    if feature_metadata is not None:
+        feature_metadata = feature_metadata.to_dataframe()
 
     if other_pcoa is None:
         procrustes = None
