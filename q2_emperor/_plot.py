@@ -35,6 +35,7 @@ def _generic_plot(output_dir: str, master: skbio.OrdinationResults,
         procrustes = [other_pcoa]
 
     viz = Emperor(master, mf, feature_mapping_file=feature_metadata,
+                  ignore_missing_samples=True,
                   procrustes=procrustes, remote='.')
 
     if custom_axes is not None:
