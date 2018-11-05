@@ -15,7 +15,7 @@ import numpy as np
 import qiime2
 import skbio
 
-from q2_emperor import plot, procrustes_plot
+from q2_emperor import plot, procrustes_plot, biplot
 
 
 class PlotTests(unittest.TestCase):
@@ -46,6 +46,17 @@ class PlotTests(unittest.TestCase):
                 'Principal Coordinate Analysis',
                 eigvals.copy(),
                 samples_df,
+                proportion_explained=proportion_explained.copy())
+
+        features = pd.DataFrame(index=['x', 'y', 'z'],
+                                columns=['PC1', 'PC2', 'PC3'],
+                                data=[[1, 2, 3], [1, 1, -1], [0, -2, 0.1]])
+        self.biplot = skbio.OrdinationResults(
+                'PCoA',
+                'Principal Coordinate Analysis',
+                eigvals.copy(),
+                samples_df,
+                features=features,
                 proportion_explained=proportion_explained.copy())
 
         self.metadata = qiime2.Metadata(
@@ -96,6 +107,29 @@ class PlotTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as output_dir:
             generic_plot(output_dir, self.pcoa, self.metadata,
                          settings=settings)
+            index_fp = os.path.join(output_dir, 'index.html')
+            self.assertTrue(os.path.exists(index_fp))
+            self.assertTrue('src="./emperor.html"' in open(index_fp).read())
+
+    def test_biplot(self):
+        with tempfile.TemporaryDirectory() as output_dir:
+            biplot(output_dir, self.biplot,
+                   sample_metadata=self.metadata)
+            index_fp = os.path.join(output_dir, 'index.html')
+            self.assertTrue(os.path.exists(index_fp))
+            self.assertTrue('src="./emperor.html"' in open(index_fp).read())
+
+    def test_biplot_with_feature_metadata(self):
+        feat_md = qiime2.Metadata(
+            pd.DataFrame(index=pd.Index(['x', 'y', 'z'], name='feature id'),
+                         columns=['k', 'p'],
+                         data=[['Bacteria', 'Firmicutes'],
+                               ['Bacteria', 'Firmicutes'],
+                               ['Bacteria', 'Bacteroidetes']]))
+
+        with tempfile.TemporaryDirectory() as output_dir:
+            biplot(output_dir, self.biplot,
+                   sample_metadata=self.metadata, feature_metadata=feat_md)
             index_fp = os.path.join(output_dir, 'index.html')
             self.assertTrue(os.path.exists(index_fp))
             self.assertTrue('src="./emperor.html"' in open(index_fp).read())
