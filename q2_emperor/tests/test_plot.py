@@ -15,7 +15,7 @@ import numpy as np
 import qiime2
 import skbio
 
-from q2_emperor import plot, procrustes_plot, biplot
+from q2_emperor import plot, procrustes_plot, biplot, generic_plot
 
 
 class PlotTests(unittest.TestCase):
@@ -103,10 +103,10 @@ class PlotTests(unittest.TestCase):
             self.assertTrue('src="./emperor.html"' in open(index_fp).read())
 
     def test_generic_plot_with_settings(self):
-        settings = {'color': 'val1'}
+        settings = {'shape': {'category': 'val1', 'data': {}}}
         with tempfile.TemporaryDirectory() as output_dir:
-            generic_plot(output_dir, self.pcoa, self.metadata,
-                         settings=settings)
+            generic_plot(output_dir, self.pcoa, self.metadata, other_pcoa=None,
+                         plot_name='plot', settings=settings)
             index_fp = os.path.join(output_dir, 'index.html')
             self.assertTrue(os.path.exists(index_fp))
             self.assertTrue('src="./emperor.html"' in open(index_fp).read())
