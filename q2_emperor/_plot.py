@@ -19,11 +19,11 @@ from scipy.spatial.distance import euclidean
 TEMPLATES = pkg_resources.resource_filename('q2_emperor', 'assets')
 
 
-def _generic_plot(output_dir: str, master: skbio.OrdinationResults,
-                  metadata: qiime2.Metadata,
-                  other_pcoa: skbio.OrdinationResults, plot_name,
-                  custom_axes: str = None,
-                  feature_metadata: qiime2.Metadata = None):
+def generic_plot(output_dir: str, master: skbio.OrdinationResults,
+                 metadata: qiime2.Metadata,
+                 other_pcoa: skbio.OrdinationResults, plot_name,
+                 custom_axes: str = None, settings: dict = None,
+                 feature_metadata: qiime2.Metadata = None):
 
     mf = metadata.to_dataframe()
     if feature_metadata is not None:
@@ -43,6 +43,8 @@ def _generic_plot(output_dir: str, master: skbio.OrdinationResults,
     if other_pcoa:
         viz.procrustes_names = ['reference', 'other']
 
+    viz.settings = settings
+
     html = viz.make_emperor(standalone=True)
     viz.copy_support_files(output_dir)
     with open(os.path.join(output_dir, 'emperor.html'), 'w') as fh:
@@ -54,17 +56,17 @@ def _generic_plot(output_dir: str, master: skbio.OrdinationResults,
 
 def plot(output_dir: str, pcoa: skbio.OrdinationResults,
          metadata: qiime2.Metadata, custom_axes: str = None) -> None:
-    _generic_plot(output_dir, master=pcoa, metadata=metadata, other_pcoa=None,
-                  custom_axes=custom_axes, plot_name='plot')
+    generic_plot(output_dir, master=pcoa, metadata=metadata, other_pcoa=None,
+                 custom_axes=custom_axes, plot_name='plot')
 
 
 def procrustes_plot(output_dir: str, reference_pcoa: skbio.OrdinationResults,
                     other_pcoa: skbio.OrdinationResults,
                     metadata: qiime2.Metadata,
                     custom_axes: str = None) -> None:
-    _generic_plot(output_dir, master=reference_pcoa, metadata=metadata,
-                  other_pcoa=other_pcoa, custom_axes=custom_axes,
-                  plot_name='procrustes_plot')
+    generic_plot(output_dir, master=reference_pcoa, metadata=metadata,
+                 other_pcoa=other_pcoa, custom_axes=custom_axes,
+                 plot_name='procrustes_plot')
 
 
 def biplot(output_dir: str, biplot: skbio.OrdinationResults,
@@ -80,6 +82,6 @@ def biplot(output_dir: str, biplot: skbio.OrdinationResults,
     feats.drop(['importance'], inplace=True, axis=1)
     biplot.features = feats[:number_of_features].copy()
 
-    _generic_plot(output_dir, master=biplot, other_pcoa=None,
-                  metadata=sample_metadata, feature_metadata=feature_metadata,
-                  plot_name='biplot')
+    generic_plot(output_dir, master=biplot, other_pcoa=None,
+                 metadata=sample_metadata, feature_metadata=feature_metadata,
+                 plot_name='biplot')
