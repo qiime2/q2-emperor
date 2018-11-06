@@ -45,6 +45,8 @@ def _generic_plot(output_dir: str, master: skbio.OrdinationResults,
     if other_pcoa:
         viz.procrustes_names = ['reference', 'other']
 
+    viz.settings = settings
+
     html = viz.make_emperor(standalone=True)
     viz.copy_support_files(output_dir)
     with open(os.path.join(output_dir, 'emperor.html'), 'w') as fh:
