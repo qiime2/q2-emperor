@@ -11,14 +11,23 @@ import q2_emperor
 from ._plot import plot, procrustes_plot, biplot
 
 from qiime2.plugin import (Plugin, Metadata, Str, List, Citations, Range, Int,
-                           Properties)
+                           Bool, Properties)
 from q2_types.ordination import PCoAResults
 
-PARAMETERS = {'metadata': Metadata, 'custom_axes': List[Str]}
+PARAMETERS = {'metadata': Metadata, 'custom_axes': List[Str],
+              'ignore_missing_samples': Bool}
 PARAMETERS_DESC = {
     'metadata': 'The sample metadata.',
     'custom_axes': ('Numeric sample metadata columns that should be '
-                    'included as axes in the Emperor plot.')
+                    'included as axes in the Emperor plot.'),
+    'ignore_missing_samples': (
+        'This will overpass the error raised when the coordinates file '
+        'contains samples that are not present in the mapping file. '
+        'Samples without metadata are included by setting all '
+        'metadata values to: "This sample has not metadata". This '
+        'flag is only honored if at least one sample is present in both '
+        'the coordinates file and the metadata.'
+    )
 }
 
 plugin = Plugin(
@@ -36,7 +45,11 @@ plugin = Plugin(
 plugin.visualizers.register_function(
     function=plot,
     inputs={'pcoa': PCoAResults},
-    parameters={'metadata': Metadata, 'custom_axes': List[Str]},
+    parameters={
+        'metadata': Metadata,
+        'custom_axes': List[Str],
+        'ignore_missing_samples': Bool
+    },
     input_descriptions={
         'pcoa': 'The principal coordinates matrix to be plotted.'
     },
@@ -65,6 +78,7 @@ plugin.visualizers.register_function(
     inputs={'biplot': PCoAResults % Properties("biplot")},
     parameters={'sample_metadata': Metadata,
                 'feature_metadata': Metadata,
+                'ignore_missing_samples': Bool,
                 'number_of_features': Int % Range(1, None)},
     input_descriptions={
         'biplot': 'The principal coordinates matrix to be plotted.'
@@ -73,6 +87,7 @@ plugin.visualizers.register_function(
         'sample_metadata': 'The sample metadata',
         'feature_metadata': 'The feature metadata (useful to manipulate the '
                             'arrows in the plot).',
+        'ignore_missing_samples': PARAMETERS_DESC['ignore_missing_samples'],
         'number_of_features': 'The number of most important features '
                               '(arrows) to display in the ordination.',
         },
