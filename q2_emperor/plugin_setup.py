@@ -23,9 +23,10 @@ PARAMETERS_DESC = {
     'ignore_missing_samples': (
         'This will overpass the error raised when the coordinates file '
         'contains samples that are not present in the mapping file. '
-        'Be aware that this is very misleading as the PCoA is accounting '
-        'for all the samples and removing some samples could lead to '
-        'erroneous/skewed interpretations.'
+        'Samples without metadata are included by setting all '
+        'metadata values to: "This sample has not metadata". This '
+        'flag is only honored if at least one sample is present in both '
+        'the coordinates file and the metadata.'
     )
 }
 
@@ -86,12 +87,7 @@ plugin.visualizers.register_function(
         'sample_metadata': 'The sample metadata',
         'feature_metadata': 'The feature metadata (useful to manipulate the '
                             'arrows in the plot).',
-        'ignore_missing_samples': (
-            'This will overpass the error raised when the coordinates file '
-            'contains samples that are not present in the mapping file. '
-            'Be aware that this is very misleading as the PCoA is accounting '
-            'for all the samples and removing some samples could lead to '
-            'erroneous/skewed interpretations.'),
+        'ignore_missing_samples': PARAMETERS_DESC['ignore_missing_samples'],
         'number_of_features': 'The number of most important features '
                               '(arrows) to display in the ordination.',
         },
