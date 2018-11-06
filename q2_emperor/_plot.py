@@ -23,6 +23,7 @@ def _generic_plot(output_dir: str, master: skbio.OrdinationResults,
                   metadata: qiime2.Metadata,
                   other_pcoa: skbio.OrdinationResults, plot_name,
                   custom_axes: str=None,
+                  ignore_missing_samples: bool=False,
                   feature_metadata: qiime2.Metadata=None):
 
     mf = metadata.to_dataframe()
@@ -35,6 +36,7 @@ def _generic_plot(output_dir: str, master: skbio.OrdinationResults,
         procrustes = [other_pcoa]
 
     viz = Emperor(master, mf, feature_mapping_file=feature_metadata,
+                  ignore_missing_samples=ignore_missing_samples,
                   procrustes=procrustes, remote='.')
 
     if custom_axes is not None:
@@ -53,22 +55,27 @@ def _generic_plot(output_dir: str, master: skbio.OrdinationResults,
 
 
 def plot(output_dir: str, pcoa: skbio.OrdinationResults,
-         metadata: qiime2.Metadata, custom_axes: str=None) -> None:
+         metadata: qiime2.Metadata, custom_axes: str=None,
+         ignore_missing_samples: bool=False) -> None:
     _generic_plot(output_dir, master=pcoa, metadata=metadata, other_pcoa=None,
+                  ignore_missing_samples=ignore_missing_samples,
                   custom_axes=custom_axes, plot_name='plot')
 
 
 def procrustes_plot(output_dir: str, reference_pcoa: skbio.OrdinationResults,
                     other_pcoa: skbio.OrdinationResults,
-                    metadata: qiime2.Metadata, custom_axes: str=None) -> None:
+                    metadata: qiime2.Metadata, custom_axes: str=None,
+                    ignore_missing_samples: bool=False) -> None:
     _generic_plot(output_dir, master=reference_pcoa, metadata=metadata,
                   other_pcoa=other_pcoa, custom_axes=custom_axes,
+                  ignore_missing_samples=ignore_missing_samples,
                   plot_name='procrustes_plot')
 
 
 def biplot(output_dir: str, biplot: skbio.OrdinationResults,
            sample_metadata: qiime2.Metadata, feature_metadata:
            qiime2.Metadata=None,
+           ignore_missing_samples: bool=False,
            number_of_features: int=5) -> None:
 
     # select the top N most important features based on the vector's magnitude
@@ -80,5 +87,6 @@ def biplot(output_dir: str, biplot: skbio.OrdinationResults,
     biplot.features = feats[:number_of_features].copy()
 
     _generic_plot(output_dir, master=biplot, other_pcoa=None,
+                  ignore_missing_samples=ignore_missing_samples,
                   metadata=sample_metadata, feature_metadata=feature_metadata,
                   plot_name='biplot')
