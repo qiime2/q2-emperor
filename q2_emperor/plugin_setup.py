@@ -21,12 +21,12 @@ PARAMETERS_DESC = {
     'custom_axes': ('Numeric sample metadata columns that should be '
                     'included as axes in the Emperor plot.'),
     'ignore_missing_samples': (
-        'This will overpass the error raised when the coordinates file '
-        'contains samples that are not present in the mapping file. '
-        'Samples without metadata are included by setting all '
-        'metadata values to: "This sample has not metadata". This '
-        'flag is only honored if at least one sample is present in both '
-        'the coordinates file and the metadata.'
+        'This will suppress the error raised when the coordinates matrix '
+        'contains samples that are not present in the metadata. Samples '
+        'without metadata are included by setting all metadata values to: '
+        '"This sample has no metadata". This flag is only applied if at '
+        'least one sample is present in both the coordinates matrix and the '
+        'metadata.'
     )
 }
 
