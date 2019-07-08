@@ -89,9 +89,15 @@ plugin.visualizers.register_function(
                             'arrows in the plot).',
         'ignore_missing_samples': PARAMETERS_DESC['ignore_missing_samples'],
         'number_of_features': 'The number of most important features '
-                              '(arrows) to display in the ordination.',
+                              '(arrows) to display in the ordination.'
+                              ' “Importance” is calculated for each feature '
+                              'based on the vector’s magnitude '
+                              '(euclidean distance from origin).',
         },
     name='Visualize and Interact with Principal Coordinates Analysis Biplot',
     description='Generates an interactive ordination biplot where the user '
-                'can visually integrate sample and feature metadata.'
+                'can visually integrate sample and feature metadata. '
+                'Vectors representing the n most important features '
+                'are then plotted in the emperor '
+                'visualization (5 largest, by default).'
 )
