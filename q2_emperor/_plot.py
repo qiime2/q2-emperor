@@ -76,10 +76,17 @@ def procrustes_plot(output_dir: str, reference_pcoa: skbio.OrdinationResults,
 
 
 def biplot(output_dir: str, biplot: skbio.OrdinationResults,
-           sample_metadata: qiime2.Metadata, feature_metadata:
+           point_metadata: qiime2.Metadata, arrow_metadata:
            qiime2.Metadata = None,
            ignore_missing_samples: bool = False,
+           invert: bool = False,
            number_of_features: int = 5) -> None:
+
+    if invert:
+        features = biplot.features.copy()
+        samples = biplot.samples.copy()
+        biplot.samples = features
+        biplot.features = samples
 
     # select the top N most important features based on the vector's magnitude
     feats = biplot.features.copy()
@@ -91,5 +98,5 @@ def biplot(output_dir: str, biplot: skbio.OrdinationResults,
 
     generic_plot(output_dir, master=biplot, other_pcoa=None,
                  ignore_missing_samples=ignore_missing_samples,
-                 metadata=sample_metadata, feature_metadata=feature_metadata,
+                 metadata=point_metadata, feature_metadata=arrow_metadata,
                  plot_name='biplot')

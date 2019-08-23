@@ -114,12 +114,12 @@ class PlotTests(unittest.TestCase):
     def test_biplot(self):
         with tempfile.TemporaryDirectory() as output_dir:
             biplot(output_dir, self.biplot,
-                   sample_metadata=self.metadata)
+                   point_metadata=self.metadata)
             index_fp = os.path.join(output_dir, 'index.html')
             self.assertTrue(os.path.exists(index_fp))
             self.assertTrue('src="./emperor.html"' in open(index_fp).read())
 
-    def test_biplot_with_feature_metadata(self):
+    def test_biplot_with_arrow_metadata(self):
         feat_md = qiime2.Metadata(
             pd.DataFrame(index=pd.Index(['x', 'y', 'z'], name='feature id'),
                          columns=['k', 'p'],
@@ -129,7 +129,23 @@ class PlotTests(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as output_dir:
             biplot(output_dir, self.biplot,
-                   sample_metadata=self.metadata, feature_metadata=feat_md)
+                   point_metadata=self.metadata, arrow_metadata=feat_md)
+            index_fp = os.path.join(output_dir, 'index.html')
+            self.assertTrue(os.path.exists(index_fp))
+            self.assertTrue('src="./emperor.html"' in open(index_fp).read())
+
+    def test_biplot_invert(self):
+        feat_md = qiime2.Metadata(
+            pd.DataFrame(index=pd.Index(['x', 'y', 'z'], name='feature id'),
+                         columns=['k', 'p'],
+                         data=[['Bacteria', 'Firmicutes'],
+                               ['Bacteria', 'Firmicutes'],
+                               ['Bacteria', 'Bacteroidetes']]))
+
+        with tempfile.TemporaryDirectory() as output_dir:
+            biplot(output_dir, self.biplot,
+                   point_metadata=feat_md, arrow_metadata=self.metadata,
+                   invert=True)
             index_fp = os.path.join(output_dir, 'index.html')
             self.assertTrue(os.path.exists(index_fp))
             self.assertTrue('src="./emperor.html"' in open(index_fp).read())
