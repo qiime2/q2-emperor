@@ -87,7 +87,7 @@ plugin.visualizers.register_function(
     parameter_descriptions={
         'sample_metadata': 'The sample metadata',
         'feature_metadata': 'The feature metadata (useful to manipulate the '
-                          'arrows in the plot).',
+                            'arrows in the plot).',
         'invert': 'If specified, the point and arrow coordinates '
                   'will be swapped.',
         'ignore_missing_samples': PARAMETERS_DESC['ignore_missing_samples'],
