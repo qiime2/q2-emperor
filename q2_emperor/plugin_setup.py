@@ -76,8 +76,8 @@ plugin.visualizers.register_function(
 plugin.visualizers.register_function(
     function=biplot,
     inputs={'biplot': PCoAResults % Properties("biplot")},
-    parameters={'point_metadata': Metadata,
-                'arrow_metadata': Metadata,
+    parameters={'sample_metadata': Metadata,
+                'feature_metadata': Metadata,
                 'ignore_missing_samples': Bool,
                 'invert': Bool,
                 'number_of_features': Int % Range(1, None)},
@@ -85,8 +85,8 @@ plugin.visualizers.register_function(
         'biplot': 'The principal coordinates matrix to be plotted.'
     },
     parameter_descriptions={
-        'point_metadata': 'The sample metadata',
-        'arrow_metadata': 'The feature metadata (useful to manipulate the '
+        'sample_metadata': 'The sample metadata',
+        'feature_metadata': 'The feature metadata (useful to manipulate the '
                           'arrows in the plot).',
         'invert': 'If specified, the point and arrow coordinates '
                   'will be swapped.',

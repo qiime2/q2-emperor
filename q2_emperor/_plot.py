@@ -76,7 +76,7 @@ def procrustes_plot(output_dir: str, reference_pcoa: skbio.OrdinationResults,
 
 
 def biplot(output_dir: str, biplot: skbio.OrdinationResults,
-           point_metadata: qiime2.Metadata, arrow_metadata:
+           sample_metadata: qiime2.Metadata, feature_metadata:
            qiime2.Metadata = None,
            ignore_missing_samples: bool = False,
            invert: bool = False,
@@ -98,5 +98,5 @@ def biplot(output_dir: str, biplot: skbio.OrdinationResults,
 
     generic_plot(output_dir, master=biplot, other_pcoa=None,
                  ignore_missing_samples=ignore_missing_samples,
-                 metadata=point_metadata, feature_metadata=arrow_metadata,
+                 metadata=sample_metadata, feature_metadata=feature_metadata,
                  plot_name='biplot')
