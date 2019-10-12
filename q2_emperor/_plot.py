@@ -83,10 +83,7 @@ def biplot(output_dir: str, biplot: skbio.OrdinationResults,
            number_of_features: int = 5) -> None:
 
     if invert:
-        features = biplot.features.copy()
-        samples = biplot.samples.copy()
-        biplot.samples = features
-        biplot.features = samples
+        biplot.samples, biplot.features = biplot.features, biplot.samples
 
     # select the top N most important features based on the vector's magnitude
     feats = biplot.features.copy()
