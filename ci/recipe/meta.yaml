@@ -22,7 +22,7 @@ requirements:
     - numpy
     - pandas
     - scikit-bio
-    - emperor 1.0.0b19
+    - emperor 1.0.0b20
     - qiime2 {{ release }}.*
     - q2templates {{ release }}.*
     - q2-types {{ release }}.*
