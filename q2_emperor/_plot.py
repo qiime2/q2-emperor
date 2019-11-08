@@ -84,6 +84,7 @@ def biplot(output_dir: str, biplot: skbio.OrdinationResults,
 
     if invert:
         biplot.samples, biplot.features = biplot.features, biplot.samples
+        sample_metadata, feature_metadata = feature_metadata, sample_metadata
 
     # select the top N most important features based on the vector's magnitude
     feats = biplot.features.copy()
