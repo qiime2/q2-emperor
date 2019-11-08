@@ -144,7 +144,7 @@ class PlotTests(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as output_dir:
             biplot(output_dir, self.biplot,
-                   sample_metadata=feat_md, feature_metadata=self.metadata,
+                   sample_metadata=self.metadata, feature_metadata=feat_md,
                    invert=True)
             index_fp = os.path.join(output_dir, 'index.html')
             self.assertTrue(os.path.exists(index_fp))
