@@ -133,3 +133,19 @@ class PlotTests(unittest.TestCase):
             index_fp = os.path.join(output_dir, 'index.html')
             self.assertTrue(os.path.exists(index_fp))
             self.assertTrue('src="./emperor.html"' in open(index_fp).read())
+
+    def test_biplot_invert(self):
+        feat_md = qiime2.Metadata(
+            pd.DataFrame(index=pd.Index(['x', 'y', 'z'], name='feature id'),
+                         columns=['k', 'p'],
+                         data=[['Bacteria', 'Firmicutes'],
+                               ['Bacteria', 'Firmicutes'],
+                               ['Bacteria', 'Bacteroidetes']]))
+
+        with tempfile.TemporaryDirectory() as output_dir:
+            biplot(output_dir, self.biplot,
+                   sample_metadata=self.metadata, feature_metadata=feat_md,
+                   invert=True)
+            index_fp = os.path.join(output_dir, 'index.html')
+            self.assertTrue(os.path.exists(index_fp))
+            self.assertTrue('src="./emperor.html"' in open(index_fp).read())

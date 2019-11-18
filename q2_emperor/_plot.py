@@ -79,7 +79,12 @@ def biplot(output_dir: str, biplot: skbio.OrdinationResults,
            sample_metadata: qiime2.Metadata, feature_metadata:
            qiime2.Metadata = None,
            ignore_missing_samples: bool = False,
+           invert: bool = False,
            number_of_features: int = 5) -> None:
+
+    if invert:
+        biplot.samples, biplot.features = biplot.features, biplot.samples
+        sample_metadata, feature_metadata = feature_metadata, sample_metadata
 
     # select the top N most important features based on the vector's magnitude
     feats = biplot.features.copy()

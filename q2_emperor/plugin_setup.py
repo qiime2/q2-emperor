@@ -79,6 +79,7 @@ plugin.visualizers.register_function(
     parameters={'sample_metadata': Metadata,
                 'feature_metadata': Metadata,
                 'ignore_missing_samples': Bool,
+                'invert': Bool,
                 'number_of_features': Int % Range(1, None)},
     input_descriptions={
         'biplot': 'The principal coordinates matrix to be plotted.'
@@ -87,6 +88,8 @@ plugin.visualizers.register_function(
         'sample_metadata': 'The sample metadata',
         'feature_metadata': 'The feature metadata (useful to manipulate the '
                             'arrows in the plot).',
+        'invert': 'If specified, the point and arrow coordinates '
+                  'will be swapped.',
         'ignore_missing_samples': PARAMETERS_DESC['ignore_missing_samples'],
         'number_of_features': 'The number of most important features '
                               '(arrows) to display in the ordination.'
