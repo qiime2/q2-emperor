@@ -8,6 +8,7 @@
 
 import os
 import pkg_resources
+import warnings
 
 import qiime2
 import skbio
@@ -60,6 +61,12 @@ def generic_plot(output_dir: str, master: skbio.OrdinationResults,
 def plot(output_dir: str, pcoa: skbio.OrdinationResults,
          metadata: qiime2.Metadata, custom_axes: str = None,
          ignore_missing_samples: bool = False) -> None:
+
+    if pcoa.features is not None:
+        pcoa.features = None
+        warnings.warn('Arrows cannot be visualized with the plot method, use '
+                      'biplot instead')
+
     generic_plot(output_dir, master=pcoa, metadata=metadata, other_pcoa=None,
                  ignore_missing_samples=ignore_missing_samples,
                  custom_axes=custom_axes, plot_name='plot')
