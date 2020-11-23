@@ -66,7 +66,8 @@ def plot(output_dir: str, pcoa: skbio.OrdinationResults,
         pcoa.features = None
     if pcoa.features is not None:
         raise ValueError("Arrows cannot be visualized with the 'plot' method, "
-                         "use 'biplot' instead.")
+                         "use 'biplot' instead, or enable "
+                         "`ignore_pcoa_features`.")
 
     generic_plot(output_dir, master=pcoa, metadata=metadata, other_pcoa=None,
                  ignore_missing_samples=ignore_missing_samples,

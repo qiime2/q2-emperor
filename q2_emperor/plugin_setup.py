@@ -30,7 +30,8 @@ PARAMETERS_DESC = {
     )
 }
 
-PLOT_PARAMETERS_DESC = {**PARAMETERS_DESC,
+PLOT_PARAMETERS_DESC = {
+    **PARAMETERS_DESC,
     'ignore_pcoa_features': 'Biplot arrows cannot be visualized using this '
                             'method. If you want to visualize biplot arrows '
                             'use the `biplot` method. Enabling this setting '

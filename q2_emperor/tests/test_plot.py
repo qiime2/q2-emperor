@@ -86,6 +86,21 @@ class PlotTests(unittest.TestCase):
             self.assertTrue(os.path.exists(index_fp))
             self.assertTrue('src="./emperor.html"' in open(index_fp).read())
 
+    def test_plot_with_pcoa_features(self):
+        # using the biplot test data, since it has features
+        with tempfile.TemporaryDirectory() as output_dir:
+            plot(output_dir, self.biplot, self.metadata,
+                 ignore_pcoa_features=True)
+            self.assertTrue(True)  # checkpoint, everything should be good
+
+    def test_plot_with_pcoa_features_ignored(self):
+        # using the biplot test data, since it has features
+        with tempfile.TemporaryDirectory() as output_dir, \
+                self.assertRaisesRegex(ValueError,
+                                       'Arrows cannot be visualized'):
+            plot(output_dir, self.biplot, self.metadata,
+                 ignore_pcoa_features=False)
+
     def test_plot_procrustes(self):
         with tempfile.TemporaryDirectory() as output_dir:
             procrustes_plot(output_dir, self.pcoa, other_pcoa=self.other,
