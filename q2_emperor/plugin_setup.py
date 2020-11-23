@@ -30,11 +30,14 @@ PARAMETERS_DESC = {
     )
 }
 
-PLOT_PARAMETERS_DESC = PARAMETERS_DESC.copy().update({
-    'ignore_pcoa_features': 'By default biplot arrows cannot be visualized '
-                            'using this method. If you want to visualize '
-                            'biplot arrows use the "biplot" method'
-})
+PLOT_PARAMETERS_DESC = {**PARAMETERS_DESC,
+    'ignore_pcoa_features': 'Biplot arrows cannot be visualized using this '
+                            'method. If you want to visualize biplot arrows '
+                            'use the `biplot` method. Enabling this setting '
+                            'will ignore any PCoA features that are present, '
+                            'otherwise, if PCoA features are detected an '
+                            'error will be raised.'
+}
 
 plugin = Plugin(
     name='emperor',
