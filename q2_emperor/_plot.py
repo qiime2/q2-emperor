@@ -60,7 +60,7 @@ def generic_plot(output_dir: str, master: skbio.OrdinationResults,
 def plot(output_dir: str, pcoa: skbio.OrdinationResults,
          metadata: qiime2.Metadata, custom_axes: str = None,
          ignore_missing_samples: bool = False,
-         ignore_pcoa_features: bool = True) -> None:
+         ignore_pcoa_features: bool = False) -> None:
 
     if ignore_pcoa_features:
         pcoa.features = None
