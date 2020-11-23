@@ -8,7 +8,6 @@
 
 import os
 import pkg_resources
-import warnings
 
 import qiime2
 import skbio
