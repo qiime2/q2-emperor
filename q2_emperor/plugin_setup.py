@@ -30,6 +30,16 @@ PARAMETERS_DESC = {
     )
 }
 
+PLOT_PARAMETERS_DESC = {
+    **PARAMETERS_DESC,
+    'ignore_pcoa_features': 'Biplot arrows cannot be visualized using this '
+                            'method. If you want to visualize biplot arrows '
+                            'use the `biplot` method. Enabling this setting '
+                            'will ignore any PCoA features that are present, '
+                            'otherwise, if PCoA features are detected an '
+                            'error will be raised.'
+}
+
 plugin = Plugin(
     name='emperor',
     version=q2_emperor.__version__,
@@ -48,12 +58,13 @@ plugin.visualizers.register_function(
     parameters={
         'metadata': Metadata,
         'custom_axes': List[Str],
-        'ignore_missing_samples': Bool
+        'ignore_missing_samples': Bool,
+        'ignore_pcoa_features': Bool
     },
     input_descriptions={
         'pcoa': 'The principal coordinates matrix to be plotted.'
     },
-    parameter_descriptions=PARAMETERS_DESC,
+    parameter_descriptions=PLOT_PARAMETERS_DESC,
     name='Visualize and Interact with Principal Coordinates Analysis Plots',
     description='Generates an interactive ordination plot where the user '
                 'can visually integrate sample metadata.'
