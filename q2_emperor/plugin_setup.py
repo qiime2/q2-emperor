@@ -73,17 +73,17 @@ plugin.visualizers.register_function(
 
 plugin.visualizers.register_function(
     function=procrustes_plot,
-    inputs={'reference_pcoa': PCoAResults, 'other_pcoa': PCoAResults, 
+    inputs={'reference_pcoa': PCoAResults, 'other_pcoa': PCoAResults,
             'm2_stats': ProcrustesM2Statistic},
     parameters=PARAMETERS,
     input_descriptions={
         'reference_pcoa': 'The reference ordination matrix to be plotted.',
         'other_pcoa': 'The "other" ordination matrix to be plotted (the one '
-                      'that was fitted to the reference).', 
+                      'that was fitted to the reference).',
         'm2_stats': 'The M^2 value of the procrustes analysis & its associated'
-                    ' p value.' 
+                    ' p value.'
     },
-    parameter_descriptions=PARAMETERS_DESC, 
+    parameter_descriptions=PARAMETERS_DESC,
     name='Visualize and Interact with a procrustes plot',
     description='Plot two procrustes-fitted matrices'
 )

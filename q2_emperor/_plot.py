@@ -46,7 +46,7 @@ def generic_plot(output_dir: str, master: skbio.OrdinationResults,
 
     if other_pcoa:
         viz.procrustes_names = ['reference', 'other']
-    
+
     viz.info = info
     viz.settings = settings
 
@@ -79,10 +79,10 @@ def plot(output_dir: str, pcoa: skbio.OrdinationResults,
 def procrustes_plot(output_dir: str, reference_pcoa: skbio.OrdinationResults,
                     other_pcoa: skbio.OrdinationResults,
                     metadata: qiime2.Metadata, m2_stats: pd.DataFrame = None,
-                    custom_axes: str = None, 
+                    custom_axes: str = None,
                     ignore_missing_samples: bool = False) -> None:
     info = None
-    if m2_stats is not None: 
+    if m2_stats is not None:
         m2 = round(m2_stats['Procrustes Results'][0], 5)
         trials = m2_stats['Procrustes Results'][2]
         dec_places = math.floor(math.log10(trials))
@@ -90,7 +90,7 @@ def procrustes_plot(output_dir: str, reference_pcoa: skbio.OrdinationResults,
         info = 'M&sup2; = ' + str(m2) + ' p-value = ' + str(p_val)
     generic_plot(output_dir, master=reference_pcoa, metadata=metadata,
                  other_pcoa=other_pcoa, custom_axes=custom_axes,
-                 ignore_missing_samples=ignore_missing_samples, 
+                 ignore_missing_samples=ignore_missing_samples,
                  info=info)
 
 
