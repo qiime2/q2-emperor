@@ -12,7 +12,9 @@ import pkg_resources
 import qiime2
 import skbio
 import q2templates
+import math
 import numpy as np
+import pandas as pd
 from emperor import Emperor
 from scipy.spatial.distance import euclidean
 
@@ -21,8 +23,7 @@ TEMPLATES = pkg_resources.resource_filename('q2_emperor', 'assets')
 
 def generic_plot(output_dir: str, master: skbio.OrdinationResults,
                  metadata: qiime2.Metadata,
-                 other_pcoa: skbio.OrdinationResults,
-                 plot_name: str,
+                 other_pcoa: skbio.OrdinationResults, info: str = None,
                  custom_axes: str = None, settings: dict = None,
                  ignore_missing_samples: bool = False,
                  feature_metadata: qiime2.Metadata = None):
@@ -45,7 +46,8 @@ def generic_plot(output_dir: str, master: skbio.OrdinationResults,
 
     if other_pcoa:
         viz.procrustes_names = ['reference', 'other']
-
+    
+    viz.info = info
     viz.settings = settings
 
     html = viz.make_emperor(standalone=True)
@@ -54,7 +56,7 @@ def generic_plot(output_dir: str, master: skbio.OrdinationResults,
         fh.write(html)
 
     index = os.path.join(TEMPLATES, 'index.html')
-    q2templates.render(index, output_dir, context={'plot_name': plot_name})
+    q2templates.render(index, output_dir)
 
 
 def plot(output_dir: str, pcoa: skbio.OrdinationResults,
@@ -71,17 +73,25 @@ def plot(output_dir: str, pcoa: skbio.OrdinationResults,
 
     generic_plot(output_dir, master=pcoa, metadata=metadata, other_pcoa=None,
                  ignore_missing_samples=ignore_missing_samples,
-                 custom_axes=custom_axes, plot_name='plot')
+                 custom_axes=custom_axes)
 
 
 def procrustes_plot(output_dir: str, reference_pcoa: skbio.OrdinationResults,
                     other_pcoa: skbio.OrdinationResults,
-                    metadata: qiime2.Metadata, custom_axes: str = None,
+                    metadata: qiime2.Metadata, m2_stats: pd.DataFrame = None,
+                    custom_axes: str = None, 
                     ignore_missing_samples: bool = False) -> None:
+    info = None
+    if m2_stats is not None: 
+        m2 = round(m2_stats['Procrustes Results'][0], 5)
+        trials = m2_stats['Procrustes Results'][2]
+        dec_places = math.floor(math.log10(trials))
+        p_val = round(m2_stats['Procrustes Results'][1], dec_places)
+        info = 'M&sup2; = ' + str(m2) + ' p-value = ' + str(p_val)
     generic_plot(output_dir, master=reference_pcoa, metadata=metadata,
                  other_pcoa=other_pcoa, custom_axes=custom_axes,
-                 ignore_missing_samples=ignore_missing_samples,
-                 plot_name='procrustes_plot')
+                 ignore_missing_samples=ignore_missing_samples, 
+                 info=info)
 
 
 def biplot(output_dir: str, biplot: skbio.OrdinationResults,
@@ -105,5 +115,4 @@ def biplot(output_dir: str, biplot: skbio.OrdinationResults,
 
     generic_plot(output_dir, master=biplot, other_pcoa=None,
                  ignore_missing_samples=ignore_missing_samples,
-                 metadata=sample_metadata, feature_metadata=feature_metadata,
-                 plot_name='biplot')
+                 metadata=sample_metadata, feature_metadata=feature_metadata)
