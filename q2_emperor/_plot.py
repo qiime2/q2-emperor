@@ -83,10 +83,10 @@ def procrustes_plot(output_dir: str, reference_pcoa: skbio.OrdinationResults,
                     ignore_missing_samples: bool = False) -> None:
     info = None
     if m2_stats is not None:
-        m2 = round(m2_stats['Procrustes Results'][0], 5)
-        trials = m2_stats['Procrustes Results'][2]
+        m2 = round(m2_stats['true M^2 value'][0], 5)
+        trials = m2_stats['number of Monte Carlo trials'][0]
         dec_places = math.ceil(math.log10(trials))
-        p_val = round(m2_stats['Procrustes Results'][1], dec_places)
+        p_val = round(m2_stats['p-value for true M^2 value'][0], dec_places)
         info = 'M&sup2; = ' + str(m2) + ' p-value = ' + str(p_val)
     generic_plot(output_dir, master=reference_pcoa, metadata=metadata,
                  other_pcoa=other_pcoa, custom_axes=custom_axes,
