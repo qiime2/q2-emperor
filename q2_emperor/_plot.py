@@ -85,7 +85,7 @@ def procrustes_plot(output_dir: str, reference_pcoa: skbio.OrdinationResults,
     if m2_stats is not None:
         m2 = round(m2_stats['Procrustes Results'][0], 5)
         trials = m2_stats['Procrustes Results'][2]
-        dec_places = math.floor(math.log10(trials))
+        dec_places = math.ceil(math.log10(trials))
         p_val = round(m2_stats['Procrustes Results'][1], dec_places)
         info = 'M&sup2; = ' + str(m2) + ' p-value = ' + str(p_val)
     generic_plot(output_dir, master=reference_pcoa, metadata=metadata,
