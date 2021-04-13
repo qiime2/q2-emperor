@@ -24,6 +24,7 @@ TEMPLATES = pkg_resources.resource_filename('q2_emperor', 'assets')
 def generic_plot(output_dir: str, master: skbio.OrdinationResults,
                  metadata: qiime2.Metadata,
                  other_pcoa: skbio.OrdinationResults, info: str = None,
+                 plot_name: str,
                  custom_axes: str = None, settings: dict = None,
                  ignore_missing_samples: bool = False,
                  feature_metadata: qiime2.Metadata = None):
@@ -56,7 +57,7 @@ def generic_plot(output_dir: str, master: skbio.OrdinationResults,
         fh.write(html)
 
     index = os.path.join(TEMPLATES, 'index.html')
-    q2templates.render(index, output_dir)
+    q2templates.render(index, output_dir, context={'plot_name': plot_name})
 
 
 def plot(output_dir: str, pcoa: skbio.OrdinationResults,
@@ -73,7 +74,7 @@ def plot(output_dir: str, pcoa: skbio.OrdinationResults,
 
     generic_plot(output_dir, master=pcoa, metadata=metadata, other_pcoa=None,
                  ignore_missing_samples=ignore_missing_samples,
-                 custom_axes=custom_axes)
+                 custom_axes=custom_axes, plot_name='plot')
 
 
 def procrustes_plot(output_dir: str, reference_pcoa: skbio.OrdinationResults,
@@ -91,7 +92,7 @@ def procrustes_plot(output_dir: str, reference_pcoa: skbio.OrdinationResults,
     generic_plot(output_dir, master=reference_pcoa, metadata=metadata,
                  other_pcoa=other_pcoa, custom_axes=custom_axes,
                  ignore_missing_samples=ignore_missing_samples,
-                 info=info)
+                 plot_name='procrustes_plot', info=info)
 
 
 def biplot(output_dir: str, biplot: skbio.OrdinationResults,
@@ -115,4 +116,5 @@ def biplot(output_dir: str, biplot: skbio.OrdinationResults,
 
     generic_plot(output_dir, master=biplot, other_pcoa=None,
                  ignore_missing_samples=ignore_missing_samples,
-                 metadata=sample_metadata, feature_metadata=feature_metadata)
+                 metadata=sample_metadata, feature_metadata=feature_metadata,
+                 plot_name='biplot')
