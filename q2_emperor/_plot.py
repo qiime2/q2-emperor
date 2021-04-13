@@ -23,8 +23,8 @@ TEMPLATES = pkg_resources.resource_filename('q2_emperor', 'assets')
 
 def generic_plot(output_dir: str, master: skbio.OrdinationResults,
                  metadata: qiime2.Metadata,
-                 other_pcoa: skbio.OrdinationResults, info: str = None,
-                 plot_name: str,
+                 other_pcoa: skbio.OrdinationResults,
+                 plot_name: str, info: str = None,
                  custom_axes: str = None, settings: dict = None,
                  ignore_missing_samples: bool = False,
                  feature_metadata: qiime2.Metadata = None):
