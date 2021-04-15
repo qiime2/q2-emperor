@@ -87,8 +87,8 @@ def procrustes_plot(output_dir: str, reference_pcoa: skbio.OrdinationResults,
         m2 = '%.5f' % m2_stats['true M^2 value'][0]
         trials = m2_stats['number of Monte Carlo trials'][0]
         dec_places = math.ceil(math.log10(trials))
-        # Because the number of p-val dec places is dynamic, we need to dynamically
-        # build the string template up.
+        # Because the number of p-val dec places is dynamic, we need to
+        # dynamically build the string template up.
         p_val_tmpl = '%%.df' % dec_places
         p_val = p_val_tmpl % m2_stats['p-value for true M^2 value'][0]
         info = 'M&sup2; = %s p-value = %s' % (m2, p_val)
