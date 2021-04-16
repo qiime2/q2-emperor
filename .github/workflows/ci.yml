@@ -35,6 +35,8 @@ jobs:
   build-and-test:
     needs: lint
     strategy:
+      # DEBUG: what's going on on macos?
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
