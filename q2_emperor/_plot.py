@@ -12,7 +12,9 @@ import pkg_resources
 import qiime2
 import skbio
 import q2templates
+import math
 import numpy as np
+import pandas as pd
 from emperor import Emperor
 from scipy.spatial.distance import euclidean
 
@@ -22,7 +24,7 @@ TEMPLATES = pkg_resources.resource_filename('q2_emperor', 'assets')
 def generic_plot(output_dir: str, master: skbio.OrdinationResults,
                  metadata: qiime2.Metadata,
                  other_pcoa: skbio.OrdinationResults,
-                 plot_name: str,
+                 plot_name: str, info: str = None,
                  custom_axes: str = None, settings: dict = None,
                  ignore_missing_samples: bool = False,
                  feature_metadata: qiime2.Metadata = None):
@@ -46,6 +48,7 @@ def generic_plot(output_dir: str, master: skbio.OrdinationResults,
     if other_pcoa:
         viz.procrustes_names = ['reference', 'other']
 
+    viz.info = info
     viz.settings = settings
 
     html = viz.make_emperor(standalone=True)
@@ -76,12 +79,23 @@ def plot(output_dir: str, pcoa: skbio.OrdinationResults,
 
 def procrustes_plot(output_dir: str, reference_pcoa: skbio.OrdinationResults,
                     other_pcoa: skbio.OrdinationResults,
-                    metadata: qiime2.Metadata, custom_axes: str = None,
+                    metadata: qiime2.Metadata, m2_stats: pd.DataFrame = None,
+                    custom_axes: str = None,
                     ignore_missing_samples: bool = False) -> None:
+    info = None
+    if m2_stats is not None:
+        m2 = '%.5f' % m2_stats['true M^2 value'][0]
+        trials = m2_stats['number of Monte Carlo trials'][0]
+        dec_places = math.ceil(math.log10(trials))
+        # Because the number of p-val dec places is dynamic, we need to
+        # dynamically build the string template up.
+        p_val_tmpl = '%%.df' % dec_places
+        p_val = p_val_tmpl % m2_stats['p-value for true M^2 value'][0]
+        info = 'M&sup2; = %s p-value = %s' % (m2, p_val)
     generic_plot(output_dir, master=reference_pcoa, metadata=metadata,
                  other_pcoa=other_pcoa, custom_axes=custom_axes,
                  ignore_missing_samples=ignore_missing_samples,
-                 plot_name='procrustes_plot')
+                 plot_name='procrustes_plot', info=info)
 
 
 def biplot(output_dir: str, biplot: skbio.OrdinationResults,

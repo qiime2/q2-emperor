@@ -25,6 +25,7 @@ requirements:
     - emperor 1.0.1
     - qiime2 {{ release }}.*
     - q2templates {{ release }}.*
+    - q2-diversity {{ release }}.*
     - q2-types {{ release }}.*
 
 test:
