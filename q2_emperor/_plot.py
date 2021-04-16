@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# Copyright (c) 2016-2020, QIIME 2 development team.
+# Copyright (c) 2016-2021, QIIME 2 development team.
 #
 # Distributed under the terms of the Modified BSD License.
 #
@@ -85,13 +85,20 @@ def procrustes_plot(output_dir: str, reference_pcoa: skbio.OrdinationResults,
     info = None
     if m2_stats is not None:
         m2 = '%.5f' % m2_stats['true M^2 value'][0]
-        trials = m2_stats['number of Monte Carlo trials'][0]
-        dec_places = math.ceil(math.log10(trials))
-        # Because the number of p-val dec places is dynamic, we need to
-        # dynamically build the string template up.
-        p_val_tmpl = '%%.df' % dec_places
-        p_val = p_val_tmpl % m2_stats['p-value for true M^2 value'][0]
+        permutations = m2_stats['number of Monte Carlo permutations'][0]
+        p_val = m2_stats['p-value for true M^2 value'][0]
+
+        if permutations < 1:
+            p_val = 'N/A'
+        else:
+            # Because the number of p-val dec places is dynamic, we need to
+            # dynamically build the string template up.
+            dec_places = math.ceil(math.log10(permutations))
+            p_val_tmpl = '%%.%df' % dec_places
+            p_val = p_val_tmpl % m2_stats['p-value for true M^2 value'][0]
+
         info = 'M&sup2; = %s p-value = %s' % (m2, p_val)
+
     generic_plot(output_dir, master=reference_pcoa, metadata=metadata,
                  other_pcoa=other_pcoa, custom_axes=custom_axes,
                  ignore_missing_samples=ignore_missing_samples,
