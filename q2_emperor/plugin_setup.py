@@ -12,8 +12,7 @@ from ._plot import plot, procrustes_plot, biplot
 
 from qiime2.plugin import (Plugin, Metadata, Str, List, Citations, Range, Int,
                            Bool, Properties)
-from q2_types.ordination import PCoAResults
-from q2_diversity import ProcrustesM2Statistic
+from q2_types.ordination import PCoAResults, ProcrustesStatistics
 
 PARAMETERS = {'metadata': Metadata, 'custom_axes': List[Str],
               'ignore_missing_samples': Bool}
@@ -74,7 +73,7 @@ plugin.visualizers.register_function(
 plugin.visualizers.register_function(
     function=procrustes_plot,
     inputs={'reference_pcoa': PCoAResults, 'other_pcoa': PCoAResults,
-            'm2_stats': ProcrustesM2Statistic},
+            'm2_stats': ProcrustesStatistics},
     parameters=PARAMETERS,
     input_descriptions={
         'reference_pcoa': 'The reference ordination matrix to be plotted.',
