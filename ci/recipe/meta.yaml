@@ -19,8 +19,8 @@ requirements:
   run:
     - python {{ python }}
     - numpy
-    - pandas
-    - scikit-bio
+    - pandas {{ pandas }}
+    - scikit-bio {{ scikit_bio }}
     - emperor ==1.0.3
     - qiime2 {{ qiime2_epoch }}.*
     - q2templates {{ qiime2_epoch }}.*
