@@ -17,6 +17,13 @@ import skbio
 
 from q2_emperor import plot, procrustes_plot, biplot, generic_plot
 
+from qiime2.plugin.testing import TestPluginBase
+
+class TestBase(TestPluginBase):
+    package = 'q2_emperor.tests'
+
+    def test_examples(self):
+        self.execute_examples()
 
 class PlotTests(unittest.TestCase):
     def setUp(self):
