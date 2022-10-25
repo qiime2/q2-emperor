@@ -69,7 +69,7 @@ plugin.visualizers.register_function(
     name='Visualize and Interact with Principal Coordinates Analysis Plots',
     description='Generates an interactive ordination plot where the user '
                 'can visually integrate sample metadata.',
-    examples={'emperor_plot': ex.plot }
+    examples={'emperor_plot': ex.plot}
 )
 
 plugin.visualizers.register_function(
@@ -86,7 +86,8 @@ plugin.visualizers.register_function(
     },
     parameter_descriptions=PARAMETERS_DESC,
     name='Visualize and Interact with a procrustes plot',
-    description='Plot two procrustes-fitted matrices'
+    description='Plot two procrustes-fitted matrices',
+    examples={'procrustes_plot': ex.procrustes_plot}
 )
 
 plugin.visualizers.register_function(
