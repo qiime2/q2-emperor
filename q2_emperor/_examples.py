@@ -7,11 +7,12 @@
 # ----------------------------------------------------------------------------
 import qiime2
 
-bc_pcoa_results_url = 'https://docs.qiime2.org/{epoch}/data/tutorials/' \
-    'moving-pictures/core-metrics-results/bray_curtis_pcoa_results.qza'
-unweighted_pcoa_results_url = 'https://docs.qiime2.org/{epoch}/data/' \
-                              'tutorials/moving-pictures/core-metrics-' \
-                              'results/unweighted_unifrac_pcoa_results.qza'
+bc_pcoa_results_url = ('https://data.qiime2.org/usage_examples/'
+                       'moving-pictures/core-metrics-results/'
+                       'bray_curtis_pcoa_results.qza')
+unweighted_pcoa_results_url = ('https://data.qiime2.org/usage_examples/'
+                               'moving-pictures/core-metrics-results/'
+                               'unweighted_unifrac_pcoa_results.qza')
 
 metadata_url = (f'https://data.qiime2.org/{qiime2.__release__}/tutorials/'
                 'moving-pictures/sample_metadata.tsv')
