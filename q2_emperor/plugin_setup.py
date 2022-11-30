@@ -13,6 +13,7 @@ from ._plot import plot, procrustes_plot, biplot
 from qiime2.plugin import (Plugin, Metadata, Str, List, Citations, Range, Int,
                            Bool, Properties)
 from q2_types.ordination import PCoAResults, ProcrustesStatistics
+import q2_emperor._examples as ex
 
 PARAMETERS = {'metadata': Metadata, 'custom_axes': List[Str],
               'ignore_missing_samples': Bool}
@@ -67,7 +68,8 @@ plugin.visualizers.register_function(
     parameter_descriptions=PLOT_PARAMETERS_DESC,
     name='Visualize and Interact with Principal Coordinates Analysis Plots',
     description='Generates an interactive ordination plot where the user '
-                'can visually integrate sample metadata.'
+                'can visually integrate sample metadata.',
+    examples={'emperor_plot': ex.plot}
 )
 
 plugin.visualizers.register_function(
@@ -84,7 +86,8 @@ plugin.visualizers.register_function(
     },
     parameter_descriptions=PARAMETERS_DESC,
     name='Visualize and Interact with a procrustes plot',
-    description='Plot two procrustes-fitted matrices'
+    description='Plot two procrustes-fitted matrices',
+    examples={'procrustes_plot': ex.procrustes_plot}
 )
 
 plugin.visualizers.register_function(
