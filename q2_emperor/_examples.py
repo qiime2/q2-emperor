@@ -5,16 +5,16 @@
 #
 # The full license is in the file LICENSE, distributed with this software.
 # ----------------------------------------------------------------------------
+import qiime2
 
 bc_pcoa_results_url = 'https://docs.qiime2.org/{epoch}/data/tutorials/' \
     'moving-pictures/core-metrics-results/bray_curtis_pcoa_results.qza'
-
-metadata_url = 'https://data.qiime2.org/{epoch}/tutorials/' \
-               'moving-pictures/sample_metadata.tsv'
-
 unweighted_pcoa_results_url = 'https://docs.qiime2.org/{epoch}/data/' \
                               'tutorials/moving-pictures/core-metrics-' \
                               'results/unweighted_unifrac_pcoa_results.qza'
+
+metadata_url = (f'https://data.qiime2.org/{qiime2.__release__}/tutorials/'
+                'moving-pictures/sample_metadata.tsv')
 
 
 def plot(use):
