@@ -5,7 +5,6 @@
 #
 # The full license is in the file LICENSE, distributed with this software.
 # ----------------------------------------------------------------------------
-import qiime2
 
 bc_pcoa_results_url = ('https://data.qiime2.org/usage-examples/'
                        'moving-pictures/core-metrics-results/'
