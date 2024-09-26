@@ -44,7 +44,7 @@ PLOT_PARAMETERS_DESC = {
 plugin = Plugin(
     name='emperor',
     version=q2_emperor.__version__,
-    website='http://emperor.microbio.me',
+    website='http://biocore.github.io/emperor/build/html/index.html',
     package='q2_emperor',
     citations=Citations.load('citations.bib', package='q2_emperor'),
     description=('This QIIME 2 plugin wraps Emperor and '
