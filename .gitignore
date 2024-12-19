@@ -67,3 +67,7 @@ target/
 # qiime
 *.qza
 *.qzv
+
+# Version file from versioningit
+_version.py
+

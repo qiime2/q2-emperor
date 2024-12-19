@@ -1,0 +1,12 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: dfb0404
+_src_path: https://github.com/qiime2/q2-setup-template.git
+module_name: emperor
+plugin_name: q2_emperor
+plugin_scripts: null
+project_author_email: yoshiki@ucsd.edu
+project_author_name: Yoshiki Vazquez-Baeza
+project_description: Display ordination plots
+project_name: q2-emperor
+project_urls_homepage: https://qiime2.org
+project_urls_repository: https://github.com/qiime2/q2-emperor
