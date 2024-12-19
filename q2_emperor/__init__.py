@@ -7,9 +7,10 @@
 # ----------------------------------------------------------------------------
 
 from ._plot import plot, procrustes_plot, biplot, generic_plot
-from ._version import get_versions
 
-__version__ = get_versions()['version']
-del get_versions
+try:
+    from ._version import __version__
+except ModuleNotFoundError:
+    __version__ = '0.0.0+notfound'
 
 __all__ = ['plot', 'procrustes_plot', 'biplot', 'generic_plot']
