@@ -6,8 +6,8 @@
 # The full license is in the file LICENSE, distributed with this software.
 # ----------------------------------------------------------------------------
 
+import importlib.resources
 import os
-import pkg_resources
 
 import qiime2
 import skbio
@@ -18,7 +18,7 @@ import pandas as pd
 from emperor import Emperor
 from scipy.spatial.distance import euclidean
 
-TEMPLATES = pkg_resources.resource_filename('q2_emperor', 'assets')
+TEMPLATES = importlib.resources.files('q2_emperor') / 'assets'
 
 
 def generic_plot(output_dir: str, master: skbio.OrdinationResults,
