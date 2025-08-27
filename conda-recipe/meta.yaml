@@ -16,7 +16,7 @@ requirements:
   - numpy
   - pandas {{ pandas }}
   - scikit-bio {{ scikit_bio }}
-  - emperor ==1.0.4
+  - emperor {{ emperor }}
   - qiime2 >={{ qiime2 }}
   - q2templates >={{ q2templates }}
   - q2-types >={{ q2_types }}
